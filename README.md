@@ -50,9 +50,15 @@ sema -g "src/**/*.ts" "authentication"
 
 ## How It Works
 
-1. **SessionStart**: The plugin automatically starts `sema serve` in the background
-2. **Search**: Queries are sent to the server for instant results (~50ms)
-3. **SessionEnd**: The server is stopped and cleaned up
+1. **Auto-Indexing**: First search automatically indexes your codebase (no manual `sema index` required)
+   - Keyword mode (`-k`): Builds FTS-only index instantly, no model loading
+   - Hybrid mode: Shows keyword results immediately while semantic index builds in background
+
+2. **Server Lifecycle**: Hybrid search spawns `sema serve` in the background for fast searches (~50ms)
+   - Server auto-shuts down after 30 minutes of inactivity
+   - SessionEnd hook cleans up any remaining processes
+
+3. **Search**: Queries are sent to the server for instant results (subsequent runs)
 
 ## Options
 

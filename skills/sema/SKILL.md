@@ -6,7 +6,7 @@ version: 1.1.0
 
 # sema - Semantic Code Search
 
-Requires sema v0.1.5+. Use `sema "<query>"` for semantic code search. Hybrid search (semantic + keyword) is the default.
+Requires sema v0.1.5+. First search automatically indexes your codebase (no manual setup needed). Use `sema "<query>"` for semantic code search. Hybrid search (semantic + keyword) is the default.
 
 ## Usage
 
@@ -39,10 +39,16 @@ sema -g "src/**/*.ts" "authentication"
 
 ## Search Modes
 
-| Mode | Flag | Best For | Speed |
-|------|------|----------|-------|
-| Hybrid | (default) | Natural language questions | ~50ms |
-| Keyword | `-k` | Exact identifiers, function names | ~5ms |
+| Mode | Flag | Best For | First Run | Speed |
+|------|------|----------|-----------|-------|
+| Hybrid | (default) | Natural language questions | Keyword results immediately, semantic index in background | ~50ms (subsequent runs) |
+| Keyword | `-k` | Exact identifiers, function names | FTS-only index built instantly, no model loading | ~5ms |
+
+**Auto-Indexing**: On first search, sema automatically indexes your codebase:
+- **Keyword mode** (`-k`): Builds lightweight FTS-only index instantly (no model needed)
+- **Hybrid mode** (default): Shows keyword results immediately while building semantic index in background
+
+**Server Lifecycle**: Hybrid search spawns a background server. The server auto-shuts down after 30 minutes of inactivity to prevent resource waste.
 
 ## When to Use
 
