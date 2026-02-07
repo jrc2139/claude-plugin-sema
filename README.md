@@ -20,7 +20,7 @@ claude plugins link ./sema-plugins/packages/claude
 
 ## Prerequisites
 
-The `sema` binary (v0.1.5+) must be installed:
+The `sema` binary (v0.2.0+) must be installed:
 
 ```bash
 curl -fsSL https://sema.sh/install.sh | sh

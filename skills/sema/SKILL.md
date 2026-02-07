@@ -1,12 +1,12 @@
 ---
 name: sema
 description: "Semantic code search. Use for 'where is X', 'how does Y work', 'find Z logic' queries. Finds code by concept, not exact text."
-version: 1.1.0
+version: 1.2.0
 ---
 
 # sema - Semantic Code Search
 
-Requires sema v0.1.5+. First search automatically indexes your codebase (no manual setup needed). Use `sema "<query>"` for semantic code search. Hybrid search (semantic + keyword) is the default.
+Requires sema v0.2.0+. First search automatically indexes your codebase (no manual setup needed). Use `sema "<query>"` for semantic code search. Hybrid search (semantic + keyword) is the default.
 
 ## Usage
 
@@ -65,6 +65,34 @@ sema -g "src/**/*.ts" "authentication"
 **Use grep:**
 - Exact string literals
 - Regex patterns
+
+## Configuration
+
+Configure sema behavior in `.sema/config.json` or `~/.config/sema/config.json`:
+
+**Search Mode** (`db.mode`):
+- `"hybrid"` (default): Semantic + keyword search. Loads embedding model, best for natural language queries
+- `"keyword"`: FTS-only search. No model loading, instant ~5ms startup, good for identifiers
+
+**Code Chunking** (`db.chunker`):
+- `"ast"` (default): Tree-sitter based chunking, precise semantic boundaries
+- `"raw"`: Line-based chunking, simpler but less semantically aware
+
+**Embedding Models** (default: `e5-small-v2`):
+- `e5-small-v2`: Small, 256 dimensions, balanced speed/quality (default)
+- `e5-large-v2`: Larger model, better semantic understanding
+- `embeddinggemma-300m`: Gemma-based embedder, good for domain-specific code
+
+Example config:
+
+```json
+{
+    "db": {
+        "mode": "hybrid",
+        "chunker": "ast"
+    }
+}
+```
 
 ## Ignore Patterns
 
