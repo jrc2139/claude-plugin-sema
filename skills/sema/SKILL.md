@@ -74,10 +74,6 @@ Configure sema behavior in `.sema/config.json` or `~/.config/sema/config.json`:
 - `"hybrid"` (default): Semantic + keyword search. Loads embedding model, best for natural language queries
 - `"keyword"`: FTS-only search. No model loading, instant ~5ms startup, good for identifiers
 
-**Code Chunking** (`db.chunker`):
-- `"ast"` (default): Tree-sitter based chunking, precise semantic boundaries
-- `"raw"`: Line-based chunking, simpler but less semantically aware
-
 **Embedding Models** (default: `e5-small-v2`):
 - `e5-small-v2`: Small, 256 dimensions, balanced speed/quality (default)
 - `e5-large-v2`: Larger model, better semantic understanding
@@ -88,8 +84,7 @@ Example config:
 ```json
 {
     "db": {
-        "mode": "hybrid",
-        "chunker": "ast"
+        "mode": "hybrid"
     }
 }
 ```
